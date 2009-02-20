@@ -23,7 +23,7 @@ interface
 
 uses
   uLand, uIFS, uLeaf, uDLA, uBrownian,
-  FAbout,
+  FAboutGPL,
   Windows, Forms, Menus, Controls, StdCtrls, Classes, Dialogs, ExtCtrls;
 
 type
@@ -176,7 +176,7 @@ end;
 
 procedure TfmMain.About1Click(Sender: TObject);
 begin
-  About('Frattali2006');
+  AboutGPL(Application.Title);
 end;
 
 procedure TfmMain.AddPoints1Click(Sender: TObject);
