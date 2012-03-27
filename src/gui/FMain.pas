@@ -187,7 +187,6 @@ end;
 
 procedure TfmMain.Aggregate1Click(Sender: TObject);
 begin
-  dla.Aggregate;
   iImg.Picture.Assign(dla.bitmap);
 end;
 

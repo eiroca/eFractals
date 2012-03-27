@@ -2,5 +2,5 @@ Name       : eFractals
 Description: Programs and library to draw fractals. Program can draw trees, landscape, DLA, ...
 OS         : Win32
 Type       : GUI
-Language   : Turbo Delphi 2006
+Language   : Delphi XE2
 Dependency : eLib
