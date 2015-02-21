@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2013/05/20 22:06:10.000.562,S:\Sviluppo\develop\projects\DelphiXE2\SharedProjects.groupproj=S:\Sviluppo\develop\projects\DelphiXE2\Projects.groupproj</Transaction>
+    <Transaction>2015/02/17 22:15:00.000.806,S:\Sviluppo\develop\Projects\Delphi\Projects.groupproj=S:\Sviluppo\develop\Projects\Delphi\projects\eANN\eANN_XE7.groupproj</Transaction>
+  </Transactions>
+	<Default.Personality>
+		<Projects ActiveProject="S:\Sviluppo\develop\Projects\Delphi\projects\eFractals\src\eFractals.dproj"/>
+	</Default.Personality>
+</BorlandProject>

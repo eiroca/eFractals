@@ -169,16 +169,18 @@ object fmConf: TfmConf
     Top = 166
     Width = 75
     Height = 25
-    TabOrder = 10
     Kind = bkOK
+    NumGlyphs = 2
+    TabOrder = 10
   end
   object BitBtn2: TBitBtn
     Left = 89
     Top = 166
     Width = 75
     Height = 25
-    TabOrder = 11
     Kind = bkCancel
+    NumGlyphs = 2
+    TabOrder = 11
   end
   object BitBtn3: TBitBtn
     Left = 238
@@ -186,8 +188,6 @@ object fmConf: TfmConf
     Width = 75
     Height = 25
     Caption = '&Random'
-    TabOrder = 12
-    OnClick = BitBtn3Click
     Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000
@@ -206,5 +206,7 @@ object fmConf: TfmConf
       3333333333338888883333330000333333333333333333333333333333333333
       0000}
     NumGlyphs = 2
+    TabOrder = 12
+    OnClick = BitBtn3Click
   end
 end

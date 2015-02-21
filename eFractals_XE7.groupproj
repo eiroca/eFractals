@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{39C02701-DD42-4E40-B928-6B110B0B4BA0}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="src\eFractals.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="eFractals">
+        <MSBuild Projects="src\eFractals.dproj"/>
+    </Target>
+    <Target Name="eFractals:Clean">
+        <MSBuild Projects="src\eFractals.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="eFractals:Make">
+        <MSBuild Projects="src\eFractals.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="eFractals"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="eFractals:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="eFractals:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
