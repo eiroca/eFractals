@@ -19,21 +19,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 unit FMain;
 
+{$IFDEF FPC}
+  {$MODE DELPHI}{$H+}
+{$ENDIF}
+
 interface
 
 uses
+{$IFnDEF FPC}
+  Windows,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
   uLand, uIFS, uLeaf, uDLA, uBrownian,
-  Windows, Forms, Menus, Controls, StdCtrls, Classes, Dialogs, ExtCtrls;
+  Forms, Menus, Controls, StdCtrls, Classes, Dialogs, ExtCtrls;
 
 type
+
+  { TfmMain }
+
   TfmMain = class(TForm)
+    dlSave: TSaveDialog;
     iImg: TImage;
     MainMenu1: TMainMenu;
     File1: TMenuItem;
     SaveBitmap1: TMenuItem;
     N1: TMenuItem;
     Exit1: TMenuItem;
-    dlSave: TSaveDialog;
     Land11: TMenuItem;
     Land21: TMenuItem;
     Regenerate1: TMenuItem;
@@ -90,10 +102,13 @@ var
 implementation
 
 uses
-  eLibVCL,
-  FConf, SysUtils;
+  FConf, FAboutGPL, SysUtils;
 
-{$R *.dfm}
+{$IFnDEF FPC}
+  {$R *.dfm}
+{$ELSE}
+  {$R *.lfm}
+{$ENDIF}
 
 procedure TfmMain.Exit1Click(Sender: TObject);
 begin

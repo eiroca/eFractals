@@ -19,10 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 unit uBrownian;
 
+{$IFDEF FPC}
+  {$MODE DELPHI}{$H+}
+{$ENDIF}
+
 interface
 
 uses
-  SysUtils, Windows, Graphics, uGraph, Math;
+{$IFnDEF FPC}
+  Windows,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
+  SysUtils, Graphics, uGraph, Math;
 
 const
   MaxLevelData = 9;

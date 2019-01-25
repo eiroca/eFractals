@@ -19,10 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 unit uIFS;
 
+{$IFDEF FPC}
+  {$MODE DELPHI}{$H+}
+{$ENDIF}
+
 interface
 
 uses
-  SysUtils, Windows, Graphics, uGraph;
+{$IFnDEF FPC}
+  Windows,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
+  SysUtils, Graphics, uGraph;
 
 type
 

@@ -22,10 +22,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 unit uLand;
 
+{$IFDEF FPC}
+  {$MODE DELPHI}{$H+}
+{$ENDIF}
+
 interface
 
 uses
-  SysUtils, Windows, Graphics, Math, uGraph;
+{$IFnDEF FPC}
+  Windows,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
+  SysUtils, Classes, Graphics, Math, uGraph;
 
 const
   SIZELN2 = 8;
@@ -99,7 +108,7 @@ type
 implementation
 
 const
-  lxmax = 800;
+  lxmax = 1024;
   passo = lxmax/(SIZE*2)+0.5;
   r     = 0.8;
   kk    = 1;
@@ -110,7 +119,7 @@ const
 
 constructor TLand1Graphic.Create;
 begin
-  inherited Create(800, 600);
+  inherited Create(lxmax, lxmax * 3 div 4);
   fillChar(map, sizeof(map), 0);
   randomize;
   fade( 32,  32,  64,   0,   0, 255, pal,   0, 127);
@@ -333,7 +342,7 @@ begin
   ys:= trunc(my2-Yp*prop);
 end;
 
-(* calcola il colore di una faccia in base alla pendenza, luminosità e altezza;
+(* calcola il colore di una faccia in base alla pendenza, luminositÃ  e altezza;
    se ac vale -1, allora la faccia appartiene al mare *)
 function TLand2Graphic.Color(penden: integer; lumin: double; zz, ac: integer): TColor;
 var
@@ -342,7 +351,7 @@ begin
   if (lumin < 0) then lumin:= 0;
   if (zz < 0) then zz:= 0;
   if (ac > -1) then begin
-    lum:= trunc(lumin*(COL_PAL-1)); (* calcolo dell'indice luminosit… da 0 a 47 *)
+    lum:= trunc(lumin*(COL_PAL-1)); (* calcolo dell'indice luminositâ€¦ da 0 a 47 *)
     zz:= zz-livmare;
     (* determina il colore in base all'altezza ed alla pendenza *)
     if (zz < 2000) then begin
@@ -389,7 +398,7 @@ begin
 end;
 
 (* procedura per il disegno delle nuvole; questa procedura e' simile a Visual,
-   tranne che non viene calcolata luminosit… e pendenza della faccia, dato che
+   tranne che non viene calcolata luminositâ€¦ e pendenza della faccia, dato che
    il colore di quest'ultima viene calcolato solo in base all'altezza *)
 procedure TLand2Graphic.Nuvole(mx, my: integer);
 var
@@ -482,7 +491,7 @@ begin
   y3:= 0;
   (* genera le nuvole prima *)
   Nuvole(mx, my);
-  (* calcola le componenti del vettore per i raggi luminosi; il modulo di questo vettore Š 1 *)
+  (* calcola le componenti del vettore per i raggi luminosi; il modulo di questo vettore Å  1 *)
   si:= cos(solx*deg2rad) * cos(soly*deg2rad);
   sj:= sin(solx*deg2rad) * cos(soly*deg2rad);
   sk:= sin(soly*deg2rad);
@@ -510,7 +519,7 @@ begin
       if (z2 < livmare) then z2:= livmare;
       if (z3 < livmare) then z3:= livmare;
       if (pend = -1) then begin
-        (* la faccia Š sul mare, per cui viene calcolata l'altezza in base alle formule del moto ondoso *)
+        (* la faccia Å  sul mare, per cui viene calcolata l'altezza in base alle formule del moto ondoso *)
         if (z1 = livmare) then begin
           dis1:= sqrt(((i-SIZEP1)*(i-SIZEP1)+(j-SIZEP1)*(j-SIZEP1)));
           z1:= livmare + trunc(sin(dis1*pimez)*50.0);
@@ -524,7 +533,7 @@ begin
           z3:= livmare + trunc(sin(dis1*pimez)*50.0);
         end;
       end;
-      (* vengono riutilizzati i due punti gi… calcolati della faccia precedente *)
+      (* vengono riutilizzati i due punti giâ€¦ calcolati della faccia precedente *)
       if (i>0) then begin
         x3:= x1;
         y3:= y1;
@@ -536,9 +545,9 @@ begin
         ToScreen(i*l-lato shr 1,lato-j*l,z1-Alt, x1, y1);
         ToScreen(i*l-lato shr 1,lato-(j*l+l),z3-Alt, x2, y3);
       end;
-      (* calcola le coordinate effettive dei punti sullo schermo, giacchŠ quelle attualmente inserite sono misurate in metri *)
+      (* calcola le coordinate effettive dei punti sullo schermo, giacchÅ  quelle attualmente inserite sono misurate in metri *)
       ToScreen(i*l+l-lato shr 1,lato-j*l,z2-Alt,x2, y2);
-      (* se almeno un vertice della faccia Š contenuto nello schermo, disegnala *)
+      (* se almeno un vertice della faccia Å  contenuto nello schermo, disegnala *)
       if ((x1>=0) and (x1<=mx) and (y1>=0) and (y1<=my)) or ((x2>=0) and (x2<=mx) and (y2>=0) and (y2<=my)) or ((x3>=0) and (x3<=mx) and (y3>=0) and (y3<=my)) then begin
         (* calcola i componenti del vettore normale alla faccia, utilizzando
         il prodotto vettoriale *)
@@ -548,7 +557,7 @@ begin
         modv:= sqrt(nrmi*nrmi + nrmj*nrmj + nrmk*nrmk);
         (* se la faccia non appartiene al mare, calcola la pendenza mediante il prodotto scalare; dato che solo la terza componente del vettore che si dirige verso l'alto vale 1, mentre le altre due sono nile, allora viene considerato solo nrmk *)
         if (pend > -1) then pend:= trunc(abs(arccos(nrmk/modv)*rad2deg));
-        (* calcola la luminosit… della faccia con il prodotto scalare tra la normale ed il vettore dei raggi *)
+        (* calcola la luminositâ€¦ della faccia con il prodotto scalare tra la normale ed il vettore dei raggi *)
         lum:= (nrmi*si + nrmj*sj + nrmk*sk) / modv;
         (* determina il colore della faccia *)
         col:= Color(pend, lum, z, pend);

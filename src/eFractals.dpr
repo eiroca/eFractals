@@ -19,7 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 program eFractals;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 uses
+  {$IFnDEF FPC}
+  {$ELSE}
+  Interfaces,
+  {$ENDIF }
   Forms,
   uGraph in 'lib\uGraph.pas',
   uLand in 'lib\uLand.pas',
@@ -28,7 +36,8 @@ uses
   uDLA in 'lib\uDLA.pas',
   uBrownian in 'lib\uBrownian.pas',
   FConf in 'gui\FConf.pas' {fmConf},
-  FMain in 'gui\FMain.pas' {fmMain};
+  FMain in 'gui\FMain.pas' {fmMain},
+  FAboutGPL in 'ext\FAboutGPL.pas';
 
 {$R *.res}
 

@@ -19,10 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 unit uDLA;
 
+{$IFDEF FPC}
+  {$MODE DELPHI}{$H+}
+{$ENDIF}
+
 interface
 
 uses
-  SysUtils, Windows, Graphics, uGraph, Math;
+{$IFnDEF FPC}
+  Windows,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
+  SysUtils, Classes, Graphics, uGraph;
 
 type
 
@@ -74,19 +83,31 @@ begin
   end;
 end;
 
+{$IFnDEF FPC}
+procedure RedGreenBlue(rgb: TColorRef; out Red, Green, Blue: Byte);
+begin
+  Red := rgb and $000000ff;
+  Green := (rgb shr 8) and $000000ff;
+  Blue := (rgb shr 16) and $000000ff;
+end;
+
+function RGBToColor(R, G, B: Byte): TColor;
+begin
+  Result := (B shl 16) or (G shl 8) or R;
+end;
+{$ENDIF}
+
+
 function TDLAGraphic.chooseColor(c: TColor): TColor;
 var
   cc: integer;
-  rr, gg, bb: integer;
+  rr, gg, bb: byte;
 begin
-  cc:= ColorToRGB(c);
-  rr:= (cc shr 16) and $FF;
-  gg:= (cc shr  8) and $FF;
-  bb:= (cc       ) and $FF;
-  dec(rr, colStep); if (rr<0) then rr:= 0;
-  dec(gg, colStep); if (rr<0) then gg:= 0;
-  dec(bb, colStep); if (rr<0) then bb:= 0;
-  Result:= rr shl 16 + gg shl 8 + bb;
+  RedGreenBlue(c, rr,gg, bb);
+  if (rr>colStep) then dec(rr, colStep) else rr:= 0;
+  if (gg>colStep) then dec(gg, colStep) else gg:= 0;
+  if (bb>colStep) then dec(bb, colStep) else bb:= 0;
+  Result:= RGBToColor(rr,gg,bb);
 end;
 
 procedure TDLAGraphic.Shoot(iter: integer);

@@ -19,10 +19,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *)
 unit FConf;
 
+{$IFDEF FPC}
+  {$MODE DELPHI}{$H+}
+{$ENDIF}
+
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+{$IFnDEF FPC}
+  Windows,
+{$ELSE}
+  LCLIntf, LCLType, LMessages,
+{$ENDIF}
+  Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons;
 
 type
@@ -63,7 +72,11 @@ var
 
 implementation
 
-{$R *.dfm}
+{$IFnDEF FPC}
+  {$R *.dfm}
+{$ELSE}
+  {$R *.lfm}
+{$ENDIF}
 
 procedure TfmConf.BitBtn3Click(Sender: TObject);
 begin
