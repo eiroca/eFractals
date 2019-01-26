@@ -109,36 +109,62 @@ begin
 end;
 
 constructor TTreeGraphic.Create;
+var
+  width: integer;
+  height: integer;
 begin
-  inherited Create(640, 480);
+  width:= 640;
+  height:= 480;
+  inherited Create(width, height);
   col1:= RGB(160, 144, 128);
   col2:= RGB( 64, 255,  64);
   FirstDirection:= -pi/2;  {Negative since y increases down the screen.}
   inc:= pi/4;
   Scale:= 6;
   Depth:= 11;
-  StartX:= round(640/2);
-  StartY:= round(0.85*480);
-  asp:= 480/640; {Find aspect ratio}
+  StartX:= round(width/2);
+  StartY:= round(0.90*height);
+  asp:= height/width; {Find aspect ratio}
 end;
+
+const MinDir : double = -pi;
+const MaxDir : double = 0;
 
 procedure TTreeGraphic.Tree(x,y: integer; Dir: double; Level: integer);
 var
   XNew, YNew: integer;
+  NewDir1: double;
+  NewDir2: double;
 begin
   if Level>0 then begin   {At level zero, recursion ends.}
     XNew:= round(Level*Scale*cos(Dir))+x;      {Multiplying by level }
     YNew:= round(asp*Level*Scale*sin(Dir))+y;  {varies the branch size.}
     if Level<5 then begin
       bitmap.canvas.Pen.Color:= col2;
+      bitmap.canvas.Pen.Width:= 1;
     end
     else begin
       bitmap.canvas.Pen.Color:= col1; {Green leaves}
+      bitmap.canvas.Pen.Width:= 2;
+      if Level>9 then begin
+        bitmap.canvas.Pen.Width:= 4;
+      end
+      else if Level>7 then begin
+        bitmap.canvas.Pen.Width:= 3;
+      end;
     end;
     bitmap.canvas.MoveTo(x,y);
     bitmap.canvas.LineTo(XNew,YNew);
-    Tree(XNew,YNew,Dir+Random*inc,Level-1); {Two recursive calls - one}
-    Tree(XNew,YNew,Dir-Random*inc,Level-1); {for each new branch.}
+    NewDir1:= Dir+Random*inc;
+    NewDir2:= Dir-Random*inc;
+    if (Level>5) then begin
+      NewDir1:= Min(NewDir1, MaxDir);
+      NewDir2:= Min(NewDir2, MaxDir);
+      NewDir1:= Max(NewDir1, MinDir);
+      NewDir2:= Max(NewDir2, MinDir);
+    end;
+    Tree(XNew,YNew,NewDir1,Level-1); {Two recursive calls - one}
+    Tree(XNew,YNew,NewDir2,Level-1); {for each new branch.}
   end;
 end;
 

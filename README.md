@@ -4,7 +4,7 @@ Programs and library to draw fractals. Program can draw trees, landscape, DLA, .
 
 * OS         : Win32 / MacOS X
 * Type       : GUI
-* Language   : FreePascal 3.0.x / Lazarus 1.8.x
+* Language   : Lazarus 1.8.x / Delphi 10.3
 * Dependency : -
 * Version    : 1.1.0
 
