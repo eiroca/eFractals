@@ -117,23 +117,6 @@ const
   rad2deg = 180/PI;
   pimez   = 6.2831852/4.0;
 
-procedure DrawTriangle(const canvas: TCanvas; const x1,y1,x2,y2,x3,y3: integer; const col: TColor);
-var
-  poly: array[0..2] of TPoint;
-begin
-  poly[0].x:= x1; poly[0].y:= y1;
-  poly[1].x:= x2; poly[1].y:= y2;
-  poly[2].x:= x3; poly[2].y:= y3;
-  with canvas do begin
-    Brush.Color:= col;
-    Brush.Style:= bsSolid;
-    Pen.Color:= Brush.Color;
-    Pen.Style:= psSolid;
-    Pen.Width:= 1;
-  end;
-  canvas.Polygon(poly);
-end;
-
 constructor TLand1Graphic.Create;
 begin
   inherited Create(lxmax, lxmax);
@@ -279,7 +262,6 @@ begin
 end;
 
 function TLand2Graphic.Random2(max: integer): integer;
-var tmp: integer;
 begin
   Result:= random(max*2)-max;
 end;

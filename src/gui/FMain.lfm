@@ -4,7 +4,7 @@ object fmMain: TfmMain
   Top = 159
   Width = 623
   Caption = 'Fractals'
-  ClientHeight = 424
+  ClientHeight = 404
   ClientWidth = 623
   Color = clBtnFace
   Menu = MainMenu1
@@ -13,7 +13,7 @@ object fmMain: TfmMain
   LCLVersion = '1.8.4.0'
   object iImg: TImage
     Left = 0
-    Height = 424
+    Height = 404
     Top = 0
     Width = 623
     Align = alClient

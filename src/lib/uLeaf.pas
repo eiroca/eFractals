@@ -103,7 +103,7 @@ begin
       x := newx;
       y := newy;
       (* Disegna il punto di date coordinate *)
-      bitmap.canvas.Pixels[320 - x + z, 350 - y]:= cl;
+      bitmap.canvas.Pixels[320 - x + z, 400 - y]:= cl;
     end;
   end;
 end;
@@ -123,7 +123,7 @@ begin
   Scale:= 6;
   Depth:= 11;
   StartX:= round(width/2);
-  StartY:= round(0.90*height);
+  StartY:= round(0.95*height);
   asp:= height/width; {Find aspect ratio}
 end;
 
