@@ -32,7 +32,7 @@ uses
 {$IFnDEF FPC}
   Windows,
 {$ELSE}
-  LCLIntf, LCLType, LMessages,
+  LCLIntf, LCLType,
 {$ENDIF}
   SysUtils, Classes, Graphics, Math, uGraph;
 
@@ -108,7 +108,7 @@ type
 implementation
 
 const
-  lxmax = 1024;
+  lxmax = SIZE*2;
   passo = lxmax/(SIZE*2)+0.5;
   r     = 0.8;
   kk    = 1;
@@ -117,9 +117,26 @@ const
   rad2deg = 180/PI;
   pimez   = 6.2831852/4.0;
 
+procedure DrawTriangle(const canvas: TCanvas; const x1,y1,x2,y2,x3,y3: integer; const col: TColor);
+var
+  poly: array[0..2] of TPoint;
+begin
+  poly[0].x:= x1; poly[0].y:= y1;
+  poly[1].x:= x2; poly[1].y:= y2;
+  poly[2].x:= x3; poly[2].y:= y3;
+  with canvas do begin
+    Brush.Color:= col;
+    Brush.Style:= bsSolid;
+    Pen.Color:= Brush.Color;
+    Pen.Style:= psSolid;
+    Pen.Width:= 1;
+  end;
+  canvas.Polygon(poly);
+end;
+
 constructor TLand1Graphic.Create;
 begin
-  inherited Create(lxmax, lxmax * 3 div 4);
+  inherited Create(lxmax, lxmax);
   fillChar(map, sizeof(map), 0);
   randomize;
   fade( 32,  32,  64,   0,   0, 255, pal,   0, 127);
@@ -205,11 +222,9 @@ var
   c: TColor;
   p: array[0..3] of TPoint;
 begin
-  for y:=0 to SIZE-1 do begin
-    for x:=0 to SIZE-1 do begin
+  for y:= 0 to SIZE-1 do begin
+    for x:= 0 to SIZE-1 do begin
       c:= pal[map[x,y]];
-      bitmap.canvas.Brush.Color:= c;
-      bitmap.canvas.Pen.Color:= c;
       p[0].X:= CalcX(x, y);
       p[0].Y:= CalcY(x, y);
       p[1].X:= CalcX(x+1, y);
@@ -218,14 +233,18 @@ begin
       p[2].Y:= CalcY(x+1, y+1);
       p[3].X:= CalcX(x, y+1);
       p[3].Y:= CalcY(x, y+1);
-      bitmap.canvas.Polygon(p);
+      bitmap.Canvas.Brush.Color:= c;
+      bitmap.Canvas.Brush.Style:= bsSolid;
+      bitmap.Canvas.Pen.Color:= c;
+      bitmap.Canvas.Pen.Style:= psClear;
+      bitmap.Canvas.Polygon(p);
     end;
   end;
 end;
 
 constructor TLand2Graphic.Create;
 begin
-  inherited Create(800, 600);
+  inherited Create(1024, 768);
   GeneratePalette;
   FillChar(map, sizeOf(map), 0);
   Clear;
@@ -262,8 +281,7 @@ end;
 function TLand2Graphic.Random2(max: integer): integer;
 var tmp: integer;
 begin
-  tmp:= random(max*2)-max;
-  Random2:= tmp;
+  Result:= random(max*2)-max;
 end;
 
 (* procedura per la creazione del frattale *)
@@ -288,7 +306,7 @@ begin
     while j<SIZEP1-1 do begin
       i:= 0;
       while i<SIZEP1-1 do begin
-	      map[i+m2,j+m2]:= check(((map[i,j]+map[i+max,j]+map[i+max,j+max]+map[i,j+max]) div 4) + Random2(div1));
+        map[i+m2,j+m2]:= check(((map[i,j]+map[i+max,j]+map[i+max,j+max]+map[i,j+max]) div 4) + Random2(div1));
         inc(i, max);
       end;
       inc(j, max);
@@ -298,8 +316,8 @@ begin
       j:= max;
       while j<SIZEP1-1 do begin
         i:= 0;
-	      while i<SIZEP1-1 do begin
-	        map[i+m2,j]:= check(((map[i,j]+map[i+max,j]+map[i+m2,j-m2]+map[i+m2,j+m2]) div 4) + Random2(div2));
+	while i<SIZEP1-1 do begin
+	  map[i+m2,j]:= check(((map[i,j]+map[i+max,j]+map[i+m2,j-m2]+map[i+m2,j+m2]) div 4) + Random2(div2));
           inc(i,max);
         end;
         inc(j, max);
@@ -307,8 +325,8 @@ begin
       j:= 0;
       while j<SIZEP1-1 do begin
         i:= max;
-	      while i<SIZEP1-1 do begin
-	        map[i,j+m2]:= check(((map[i,j]+map[i,j+max]+map[i-m2,j+m2]+map[i+m2,j+m2]) div 4) + Random2(div2));
+	while i<SIZEP1-1 do begin
+	  map[i,j+m2]:= check(((map[i,j]+map[i,j+max]+map[i-m2,j+m2]+map[i+m2,j+m2]) div 4) + Random2(div2));
           inc(i, max);
         end;
         inc(j, max);
@@ -409,7 +427,6 @@ var
   z: integer;
   col: integer;
   Alt: double;
-  poly: array[0..2] of TPoint;
 begin
   prop:= mx;
   mx2:= mx * 0.5;
@@ -418,8 +435,8 @@ begin
   sn:= sin(ang*deg2rad);
   l:= lato div (SIZEP1-1);
   z:= map[(SIZEP1-1) shr 1, SIZEP1-1];
-  x3:= 0;
-  y3:= 0;
+  x1:= 0; x2:= 0; x3:= 0;
+  y1:= 0; y2:= 0; y3:= 0;
   if (z > livmare) then Alt:= altz + z else Alt:= altz + livmare;
   for j:= 0 to SIZEP1-2 do begin
     for i:= 0 to SIZEP1-2 do begin
@@ -442,13 +459,8 @@ begin
       end;
       ToScreen(i*l+l-lato shr 1,lato-j*l,z2-Alt, x2, y2);
       if ((x1>=0) and (x1<=mx) and (y1>=0) and (y1<=my)) or ((x2>=0) and (x2<=mx) and (y2>=0) and (y2<=my)) or ((x3>=0) and (x3<=mx) and (y3>=0) and (y3<=my)) then begin
-	      col:= pal_nuv[MulDiv(z, COL_NUV-1, altmax+1)];
-        bitmap.canvas.Brush.Color:= col;
-        bitmap.canvas.Pen.Color:= col;
-      	poly[0].x:= x1; poly[0].y:= y1;
-      	poly[1].x:= x2; poly[1].y:= y2;
-      	poly[2].x:= x3; poly[2].y:= y3;
-        bitmap.canvas.Polygon(poly);
+	col:= pal_nuv[MulDiv(z, COL_NUV-1, altmax+1)];
+        DrawTriangle(bitmap.Canvas, x1, y1, x2, y2, x3, y3, col);
       end;
       z1:= map[(SIZEP1-2)-i,(SIZEP1-2)-j];
       z2:= map[(SIZEP1-2)-i,(SIZEP1-1)-j];
@@ -457,13 +469,8 @@ begin
       z1:= altmax * (j+1) div (SIZEP1-1) + livmare;
       ToScreen(i*l+l-lato shr 1,lato-(j*l+l),z1-Alt, x1, y1);
       if ((x1>=0) and (x1<=mx) and (y1>=0) and (y1<=my)) or ((x2>=0) and (x2<=mx) and (y2>=0) and (y2<=my)) or ((x3>=0) and (x3<=mx) and (y3>=0) and (y3<=my)) then begin
-	      col:= pal_nuv[MulDiv(z, COL_NUV-1, altmax+1)];
-        bitmap.canvas.Brush.Color:= col;
-        bitmap.canvas.Pen.Color:= col;
-      	poly[0].x:= x1; poly[0].y:= y1;
-      	poly[1].x:= x2; poly[1].y:= y2;
-      	poly[2].x:= x3; poly[2].y:= y3;
-        bitmap.canvas.Polygon(poly);
+        col:= pal_nuv[MulDiv(z, COL_NUV-1, altmax+1)];
+        DrawTriangle(bitmap.Canvas, x1, y1, x2, y2, x3, y3, col);
       end;
     end;
   end;
@@ -472,7 +479,7 @@ end;
 (* procedura per la generazione dell'immagine finale *)
 procedure TLand2Graphic.DrawMap3D;
 var
-  gmode, gerr, mx, my: integer;
+  mx, my: integer;
   j,i,l: integer;
   x1,x2,x3,
   y1,y2,y3,
@@ -481,14 +488,12 @@ var
   pend, col: integer;
   Alt, dis1: double;
   nrmi, nrmj, nrmk, si, sj, sk, modv, lum, lat: double;
-  poly: array[0..2] of TPoint;
-  coeffneb: integer;
 begin
   (* apre lo schermo nella risoluzione indicata *)
   mx:= bitmap.Width;
   my:= bitmap.Height;
-  x3:= 0;
-  y3:= 0;
+  x1:= 0; x2:= 0; x3:= 0;
+  y1:= 0; y2:= 0; y3:= 0;
   (* genera le nuvole prima *)
   Nuvole(mx, my);
   (* calcola le componenti del vettore per i raggi luminosi; il modulo di questo vettore Š 1 *)
@@ -562,12 +567,7 @@ begin
         (* determina il colore della faccia *)
         col:= Color(pend, lum, z, pend);
         (* disegna la faccia con il colore calcolato *)
-        bitmap.canvas.Brush.Color:= col;
-        bitmap.canvas.Pen.Color:= col;
-      	poly[0].x:= x1; poly[0].y:= y1;
-      	poly[1].x:= x2; poly[1].y:= y2;
-      	poly[2].x:= x3; poly[2].y:= y3;
-        bitmap.canvas.Polygon(poly);
+        DrawTriangle(bitmap.Canvas, x1, y1, x2, y2, x3, y3, col);
       end;
       (* rieffettua le stesse operazione sino ad ora illustrate, per la seconda faccia del quadrato *)
       z1:= map[i+1,j+1];
@@ -601,12 +601,7 @@ begin
         if (pend > -1) then pend:= trunc(abs(arccos(nrmk/modv)*rad2deg));
         lum:= (nrmi*si + nrmj*sj + nrmk*sk) / modv;
         col:= Color(pend, lum, z, pend);
-        bitmap.canvas.Brush.Color:= col;
-        bitmap.canvas.Pen.Color:= col;
-      	poly[0].x:= x1; poly[0].y:= y1;
-      	poly[1].x:= x2; poly[1].y:= y2;
-      	poly[2].x:= x3; poly[2].y:= y3;
-        bitmap.canvas.Polygon(poly);
+        DrawTriangle(bitmap.Canvas, x1, y1, x2, y2, x3, y3, col);
       end;
     end;
   end;

@@ -1,32 +1,31 @@
 object fmAboutGPL: TfmAboutGPL
   Left = 352
-  Height = 261
+  Height = 294
   Top = 198
   Width = 426
   BorderStyle = bsDialog
   Caption = 'About'
-  ClientHeight = 261
+  ClientHeight = 294
   ClientWidth = 426
-  Color = clBtnFace
   Position = poMainFormCenter
   LCLVersion = '1.8.4.0'
   object Label1: TLabel
     Left = 5
-    Height = 216
+    Height = 243
     Top = 5
     Width = 416
     Alignment = taCenter
     AutoSize = False
-    Caption = 'Copyright (C) 1996-2019 eIrOcA Enrico Croce && Simona Burzio'#13#10#13#10'This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.'#13#10#13#10'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.'#13#10#13#10'You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.'
-    Color = clBtnFace
+    Caption = 'Copyright (c) 1996-2019 eIrOcA Enrico Croce && Simona Burzio'#13#10#13#10'This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.'#13#10#13#10'This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.'#13#10#13#10'You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.'
+    Color = clBackground
     ParentColor = False
     Transparent = False
     WordWrap = True
   end
   object BitBtn1: TBitBtn
-    Left = 184
+    Left = 176
     Height = 25
-    Top = 224
+    Top = 256
     Width = 70
     Default = True
     DefaultCaption = True

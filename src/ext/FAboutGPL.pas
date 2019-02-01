@@ -43,9 +43,9 @@ procedure AboutGPL(me: string);
 implementation
 
 {$IFDEF FPC}
-  {$R *.LFM}
+  {$R *.lfm}
 {$ELSE}
-  {$R *.DFM}
+  {$R *.dfm}
 {$ENDIF}
 
 procedure AboutGPL(me: string);

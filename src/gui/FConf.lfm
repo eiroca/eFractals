@@ -1,180 +1,176 @@
 object fmConf: TfmConf
-  Left = 551
+  Left = 443
   Height = 199
-  Top = 354
-  Width = 330
+  Top = 309
+  Width = 401
   Caption = 'Configurazione Terreno'
   ClientHeight = 199
-  ClientWidth = 330
-  Color = clBtnFace
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
+  ClientWidth = 401
   OnCreate = FormCreate
   Position = poMainFormCenter
   LCLVersion = '1.8.4.0'
   object Label1: TLabel
     Left = 8
-    Height = 13
+    Height = 16
     Top = 8
-    Width = 33
+    Width = 45
     Caption = 'Angolo'
     ParentColor = False
   end
   object Label2: TLabel
-    Left = 168
-    Height = 13
+    Left = 200
+    Height = 16
     Top = 8
-    Width = 33
+    Width = 42
     Caption = 'Dist. f.'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 8
-    Height = 13
+    Height = 16
     Top = 38
-    Width = 21
+    Width = 27
     Caption = 'Lato'
     ParentColor = False
   end
   object Label4: TLabel
-    Left = 168
-    Height = 13
+    Left = 200
+    Height = 16
     Top = 38
-    Width = 78
+    Width = 107
     Caption = 'Altezza massima'
     ParentColor = False
   end
   object Label5: TLabel
     Left = 8
-    Height = 13
+    Height = 16
     Top = 68
-    Width = 62
+    Width = 83
     Caption = 'Altezza mare'
     ParentColor = False
   end
   object Label6: TLabel
-    Left = 168
-    Height = 13
+    Left = 200
+    Height = 16
     Top = 68
-    Width = 61
+    Width = 80
     Caption = 'Altezza vista'
     ParentColor = False
   end
   object Label7: TLabel
     Left = 8
-    Height = 13
+    Height = 16
     Top = 98
-    Width = 54
+    Width = 75
     Caption = 'Dimensione'
     ParentColor = False
   end
   object Label8: TLabel
-    Left = 168
-    Height = 13
+    Left = 200
+    Height = 16
     Top = 98
-    Width = 65
+    Width = 87
     Caption = 'Seme random'
     ParentColor = False
   end
   object Label9: TLabel
     Left = 8
-    Height = 13
+    Height = 16
     Top = 130
-    Width = 66
+    Width = 90
     Caption = 'Direzione sole'
     ParentColor = False
   end
   object Label10: TLabel
-    Left = 168
-    Height = 13
+    Left = 200
+    Height = 16
     Top = 130
-    Width = 57
+    Width = 77
     Caption = 'Altezza sole'
     ParentColor = False
   end
   object iAngolo: TEdit
-    Left = 92
-    Height = 21
+    Left = 104
+    Height = 22
     Top = 5
-    Width = 61
+    Width = 75
     TabOrder = 0
     Text = '0'
   end
   object iDistF: TEdit
-    Left = 252
-    Height = 21
+    Left = 312
+    Height = 22
     Top = 5
-    Width = 61
+    Width = 75
     TabOrder = 1
     Text = '1.1'
   end
   object iLato: TEdit
-    Left = 92
-    Height = 21
+    Left = 104
+    Height = 22
     Top = 35
-    Width = 61
+    Width = 75
     TabOrder = 2
     Text = '30000'
   end
   object iAltMax: TEdit
-    Left = 252
-    Height = 21
+    Left = 312
+    Height = 22
     Top = 35
-    Width = 61
+    Width = 75
     TabOrder = 3
     Text = '10000'
   end
   object iAltezzaMare: TEdit
-    Left = 92
-    Height = 21
+    Left = 104
+    Height = 22
     Top = 65
-    Width = 61
+    Width = 75
     TabOrder = 4
     Text = '5000'
   end
   object iAltVista: TEdit
-    Left = 252
-    Height = 21
+    Left = 312
+    Height = 22
     Top = 68
-    Width = 61
+    Width = 75
     TabOrder = 5
     Text = '100.0'
   end
   object iDimensione: TEdit
-    Left = 92
-    Height = 21
+    Left = 104
+    Height = 22
     Top = 95
-    Width = 61
+    Width = 75
     TabOrder = 6
     Text = '2.3'
   end
   object iSeed: TEdit
-    Left = 252
-    Height = 21
+    Left = 312
+    Height = 22
     Top = 95
-    Width = 61
+    Width = 75
     TabOrder = 7
     Text = '332422656'
   end
   object iDirSole: TEdit
-    Left = 92
-    Height = 21
+    Left = 104
+    Height = 22
     Top = 127
-    Width = 61
+    Width = 75
     TabOrder = 8
     Text = '315'
   end
   object iAltSole: TEdit
-    Left = 252
-    Height = 21
+    Left = 312
+    Height = 22
     Top = 127
-    Width = 61
+    Width = 75
     TabOrder = 9
     Text = '45'
   end
   object BitBtn1: TBitBtn
-    Left = 8
+    Left = 312
     Height = 25
     Top = 166
     Width = 75
@@ -185,7 +181,7 @@ object fmConf: TfmConf
     TabOrder = 10
   end
   object BitBtn2: TBitBtn
-    Left = 89
+    Left = 227
     Height = 25
     Top = 166
     Width = 75
@@ -196,11 +192,11 @@ object fmConf: TfmConf
     TabOrder = 11
   end
   object BitBtn3: TBitBtn
-    Left = 238
+    Left = 8
     Height = 25
     Top = 166
-    Width = 75
-    Caption = '&Random'
+    Width = 105
+    Caption = '&Randomize'
     Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000

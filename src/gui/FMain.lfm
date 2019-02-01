@@ -1,26 +1,25 @@
 object fmMain: TfmMain
   Left = 270
-  Height = 507
+  Height = 424
   Top = 159
-  Width = 655
-  Caption = 'Frattali'
-  ClientHeight = 487
-  ClientWidth = 655
+  Width = 623
+  Caption = 'Fractals'
+  ClientHeight = 424
+  ClientWidth = 623
   Color = clBtnFace
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
   Menu = MainMenu1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   LCLVersion = '1.8.4.0'
   object iImg: TImage
     Left = 0
-    Height = 487
+    Height = 424
     Top = 0
-    Width = 655
+    Width = 623
     Align = alClient
     AutoSize = True
+    Proportional = True
+    Stretch = True
   end
   object MainMenu1: TMainMenu
     left = 52

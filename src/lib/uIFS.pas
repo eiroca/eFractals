@@ -29,7 +29,7 @@ uses
 {$IFnDEF FPC}
   Windows,
 {$ELSE}
-  LCLIntf, LCLType, LMessages,
+  LCLIntf, LCLType,
 {$ENDIF}
   SysUtils, Graphics, uGraph;
 
@@ -145,6 +145,7 @@ var
   nx, ny: double;
   x, y: integer;
 begin
+  nx:= 0; ny:= 0;
   for n:= 1 to iter do begin
     MakeTran(nx, ny);
     x:= round(nx*xsc)+XOff;

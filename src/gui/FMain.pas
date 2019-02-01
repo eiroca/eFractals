@@ -29,7 +29,7 @@ uses
 {$IFnDEF FPC}
   Windows,
 {$ELSE}
-  LCLIntf, LCLType, LMessages,
+  LCLIntf, LCLType,
 {$ENDIF}
   uLand, uIFS, uLeaf, uDLA, uBrownian,
   Forms, Menus, Controls, StdCtrls, Classes, Dialogs, ExtCtrls;

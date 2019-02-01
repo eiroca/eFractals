@@ -29,7 +29,7 @@ uses
 {$IFnDEF FPC}
   Windows,
 {$ELSE}
-  LCLIntf, LCLType, LMessages,
+  LCLIntf, LCLType,
 {$ENDIF}
   SysUtils, Classes, Graphics, uGraph;
 
@@ -100,7 +100,6 @@ end;
 
 function TDLAGraphic.chooseColor(c: TColor): TColor;
 var
-  cc: integer;
   rr, gg, bb: byte;
 begin
   RedGreenBlue(c, rr,gg, bb);
